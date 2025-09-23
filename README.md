@@ -439,4 +439,216 @@
         @media (max-width: 768px) {
             .top-bar {
                 flex-direction: column;
-                gap: 0
+                gap: 0.5rem;
+                padding: 1rem;
+                text-align: center;
+            }
+
+            .logo {
+                font-size: 1.3rem;
+            }
+
+            .date-display {
+                text-align: center;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .container {
+                gap: 1rem;
+            }
+
+            .time-segment {
+                min-width: 100px;
+                padding: 1rem;
+            }
+
+            .number {
+                font-size: 2.5rem;
+            }
+
+            .bible-btn, .coming-soon-btn, .video-soon-btn {
+                padding: 1rem 2rem;
+                font-size: 1.1rem;
+            }
+
+            .chat-section {
+                margin-top: 2rem;
+                padding: 1rem;
+            }
+
+            #chatBox {
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Menu Superior -->
+    <div class="top-bar">
+        <div class="logo">
+            <i class="fas fa-bible"></i> Bíblia Sagrada
+        </div>
+        <div class="date-display">
+            <div class="weekday" id="currentWeekday">Carregando...</div>
+            <div class="full-date" id="currentDate">Carregando...</div>
+        </div>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <main>
+        <h1>CONTAGEM REGRESSIVA</h1>
+        <p class="subtitle">Aguardando o grande momento em 2026. Cada segundo conta para a transformação espiritual.</p>
+
+        <div class="container">
+            <div class="time-segment">
+                <div class="number" id="days">00</div>
+                <div class="label">Dias</div>
+            </div>
+            <div class="time-segment">
+                <div class="number" id="hours">00</div>
+                <div class="label">Horas</div>
+            </div>
+            <div class="time-segment">
+                <div class="number" id="minutes">00</div>
+                <div class="label">Minutos</div>
+            </div>
+            <div class="time-segment">
+                <div class="number" id="seconds">00</div>
+                <div class="label">Segundos</div>
+            </div>
+        </div>
+
+        <a href="https://www.bible.com/pt-BR" target="_blank" class="bible-btn">
+            <i class="fas fa-book-bible"></i> Ler Bíblia Online
+        </a>
+
+        <button class="coming-soon-btn" id="openModalBtn">
+            <i class="fas fa-calendar-star"></i> 2026 em Breve
+        </button>
+
+        <button class="video-soon-btn">
+            <i class="fas fa-video"></i> Vídeo em Breve
+        </button>
+    </main>
+
+    <!-- Modal de Lançamento -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <h2>🚀 Lançamento em 2026!</h2>
+            <p>Prepare-se para uma jornada espiritual inesquecível. Um novo tempo está chegando.</p>
+            <div class="video-container">
+                <!-- Substitua o src pelo seu vídeo do YouTube -->
+                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" title="Vídeo promocional" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <button class="close-modal" id="closeModalBtn">Fechar</button>
+        </div>
+    </div>
+
+    <!-- Seção de Chat -->
+    <div class="chat-section">
+        <h3><i class="fas fa-comments"></i> Chat Comunitário</h3>
+        <div id="chatBox">
+            <div><strong>Sistema:</strong> Bem-vindo ao chat espiritual! 🙏</div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chatInput" placeholder="Digite sua mensagem..." maxlength="100">
+            <button class="send-btn" id="sendChatBtn">Enviar</button>
+        </div>
+        <div class="chat-footer">
+            Seja respeitoso. Este é um espaço de fé e comunhão.
+        </div>
+    </div>
+
+    <script>
+        // Atualiza data e dia da semana
+        function updateDate() {
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('currentDate').textContent = now.toLocaleDateString('pt-BR', options);
+            document.getElementById('currentWeekday').textContent = now.toLocaleDateString('pt-BR', { weekday: 'long' }).charAt(0).toUpperCase() + now.toLocaleDateString('pt-BR', { weekday: 'long' }).slice(1);
+        }
+        updateDate();
+        setInterval(updateDate, 60000); // Atualiza a cada minuto
+
+        // Contagem regressiva para 1º de janeiro de 2026
+        function updateCountdown() {
+            const targetDate = new Date("January 1, 2026 00:00:00").getTime();
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance < 0) {
+                document.getElementById("days").innerText = "00";
+                document.getElementById("hours").innerText = "00";
+                document.getElementById("minutes").innerText = "00";
+                document.getElementById("seconds").innerText = "00";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days.toString().padStart(2, '0');
+            document.getElementById("hours").innerText = hours.toString().padStart(2, '0');
+            document.getElementById("minutes").innerText = minutes.toString().padStart(2, '0');
+            document.getElementById("seconds").innerText = seconds.toString().padStart(2, '0');
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        // Modal
+        const modalOverlay = document.getElementById('modalOverlay');
+        const openModalBtn = document.getElementById('openModalBtn');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+
+        openModalBtn.addEventListener('click', () => {
+            modalOverlay.classList.add('active');
+        });
+
+        closeModalBtn.addEventListener('click', () => {
+            modalOverlay.classList.remove('active');
+        });
+
+        // Chat
+        const chatInput = document.getElementById('chatInput');
+        const sendChatBtn = document.getElementById('sendChatBtn');
+        const chatBox = document.getElementById('chatBox');
+
+        sendChatBtn.addEventListener('click', sendMessage);
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+
+        function sendMessage() {
+            const message = chatInput.value.trim();
+            if (message === '') return;
+
+            const messageDiv = document.createElement('div');
+            messageDiv.innerHTML = `<strong>Você:</strong> ${message}`;
+            chatBox.appendChild(messageDiv);
+
+            chatInput.value = '';
+            chatBox.scrollTop = chatBox.scrollHeight; // Scroll automático
+
+            // Resposta automática (opcional)
+            setTimeout(() => {
+                const replyDiv = document.createElement('div');
+                replyDiv.innerHTML = `<strong>Sistema:</strong> Que Deus te abençoe! 🙏`;
+                chatBox.appendChild(replyDiv);
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }, 1000);
+        }
+    </script>
+
+</body>
+</html>
