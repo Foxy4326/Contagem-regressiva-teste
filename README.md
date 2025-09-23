@@ -171,51 +171,25 @@
             font-size: 1.6rem;
         }
 
-        /* BOTÃO 2026 */
-        .coming-soon-btn {
+        /* TEXTO/BOTÃO "EM BREVE LANÇARÁ EM 2026" */
+        .launch-info {
             margin-top: 1.5rem;
             padding: 1rem 2.5rem;
-            background: linear-gradient(135deg, #1e3a8a, #0c1b44);
-            color: #fff;
+            background: rgba(255, 255, 255, 0.1);
+            color: #FFD700;
             font-size: 1.2rem;
             font-weight: 700;
-            border: none;
+            border: 1px solid rgba(255, 215, 0, 0.5);
             border-radius: 50px;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.8rem;
-            box-shadow: 0 5px 20px rgba(30, 58, 138, 0.5);
-            transition: all 0.4s ease;
-            text-decoration: none;
-            position: relative;
-            overflow: hidden;
+            display: inline-block;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 1.5s ease-in-out;
         }
 
-        .coming-soon-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: 0.5s;
-        }
-
-        .coming-soon-btn:hover::before {
-            left: 100%;
-        }
-
-        .coming-soon-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.5);
-            background: linear-gradient(135deg, #2563eb, #1d4ed8);
-        }
-
-        .coming-soon-btn i {
-            font-size: 1.3rem;
-            color: #FFD700;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         /* BOTÃO VÍDEO EM BREVE */
@@ -252,94 +226,6 @@
         @keyframes glow {
             from { box-shadow: 0 5px 20px rgba(106, 13, 173, 0.4); }
             to { box-shadow: 0 5px 25px rgba(186, 85, 255, 0.8); }
-        }
-
-        /* MODAL DE LANÇAMENTO */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 200;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.4s ease;
-        }
-
-        .modal-overlay.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        .modal {
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
-            padding: 2.5rem;
-            border-radius: 20px;
-            text-align: center;
-            max-width: 90%;
-            max-width: 550px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7);
-            border: 2px solid #FFD700;
-            position: relative;
-            transform: scale(0.9);
-            transition: transform 0.4s ease;
-        }
-
-        .modal-overlay.active .modal {
-            transform: scale(1);
-        }
-
-        .modal h2 {
-            color: #FFD700;
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-        }
-
-        .modal p {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-            color: #e0e0e0;
-        }
-
-        /* CONTAINER DO VÍDEO */
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%; /* Proporção 16:9 */
-            height: 0;
-            overflow: hidden;
-            border-radius: 12px;
-            margin-bottom: 1.5rem;
-        }
-
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .close-modal {
-            background: #8B0000;
-            color: white;
-            border: none;
-            padding: 0.8rem 1.8rem;
-            font-size: 1.1rem;
-            font-weight: 600;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .close-modal:hover {
-            background: #a52a2a;
         }
 
         /* SEÇÃO DE CHAT */
@@ -473,7 +359,7 @@
                 font-size: 2.5rem;
             }
 
-            .bible-btn, .coming-soon-btn, .video-soon-btn {
+            .bible-btn, .video-soon-btn, .launch-info {
                 padding: 1rem 2rem;
                 font-size: 1.1rem;
             }
@@ -530,27 +416,15 @@
             <i class="fas fa-book-bible"></i> Ler Bíblia Online
         </a>
 
-        <button class="coming-soon-btn" id="openModalBtn">
-            <i class="fas fa-calendar-star"></i> 2026 em Breve
-        </button>
+        <!-- NOVO: Texto "Em breve lançará em 2026" -->
+        <div class="launch-info">
+            ✨ Em breve lançará em 2026
+        </div>
 
         <button class="video-soon-btn">
             <i class="fas fa-video"></i> Vídeo em Breve
         </button>
     </main>
-
-    <!-- Modal de Lançamento -->
-    <div class="modal-overlay" id="modalOverlay">
-        <div class="modal">
-            <h2>🚀 Lançamento em 2026!</h2>
-            <p>Prepare-se para uma jornada espiritual inesquecível. Um novo tempo está chegando.</p>
-            <div class="video-container">
-                <!-- Substitua o src pelo seu vídeo do YouTube -->
-                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" title="Vídeo promocional" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-            <button class="close-modal" id="closeModalBtn">Fechar</button>
-        </div>
-    </div>
 
     <!-- Seção de Chat -->
     <div class="chat-section">
@@ -605,19 +479,6 @@
 
         updateCountdown();
         setInterval(updateCountdown, 1000);
-
-        // Modal
-        const modalOverlay = document.getElementById('modalOverlay');
-        const openModalBtn = document.getElementById('openModalBtn');
-        const closeModalBtn = document.getElementById('closeModalBtn');
-
-        openModalBtn.addEventListener('click', () => {
-            modalOverlay.classList.add('active');
-        });
-
-        closeModalBtn.addEventListener('click', () => {
-            modalOverlay.classList.remove('active');
-        });
 
         // Chat
         const chatInput = document.getElementById('chatInput');
